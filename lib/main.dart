@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => AllBlocs(),
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Address Book',
         theme: ThemeData(
           // This is the theme of your application.
           //

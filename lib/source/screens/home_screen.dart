@@ -21,6 +21,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   StreamSubscription boundsSubscription;
 
+  String address;
+
+  String tag;
+
   static final CameraPosition initialLocation = CameraPosition(
     target: LatLng(23.8103, 90.4125),
     zoom: 14.4746,
@@ -165,10 +169,77 @@ class _HomeScreenState extends State<HomeScreen> {
 
               ],
             ),
-          )
+
+          ),
+          TextFormField(
+            decoration: const InputDecoration(
+              icon: Icon(Icons.place),
+              hintText: 'Road No, Flat No',
+
+            ),
+            onSaved: (String value) {
+              address = value;
+              // This optional block of code can be used to run
+              // code when the user saves the form.
+            },
+          ),
+
+          TextFormField(
+            decoration: const InputDecoration(
+              icon: Icon(Icons.home),
+              hintText: 'EG. HOME, WORK',
+              labelText: 'Tag'
+
+            ),
+            onSaved: (String value) {
+              tag = value;
+              // This optional block of code can be used to run
+              // code when the user saves the form.
+            },
+          ),
+          SizedBox(height: 30,),
+
+          ButtonTheme(
+            minWidth: 100.0,
+            height: 40.0,
+            child: RaisedButton(
+              child: Text("SAVE ADDRESS"),
+              onPressed:(){
+                _showDialog();
+              },
+              color: Colors.orange,
+              textColor: Colors.white,
+              splashColor: Colors.grey,
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+            ),
+          ),
 
         ],
       ),
+    );
+  }
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          //title: new Text("Alert Dialog title"),
+          content: new Text("Address Sucessfully Saved"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                address = '';
+                tag = '';
+              },
+            ),
+          ],
+        );
+      },
     );
   }
   Future<void> _goToPlace(Place place) async {
